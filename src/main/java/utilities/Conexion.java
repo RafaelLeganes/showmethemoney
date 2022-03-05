@@ -10,8 +10,8 @@ public class Conexion {
 
 	
 	private Conexion() throws Exception{
-		String url = "jdbc:mysql://localhost:3306/showmethemoney";
-		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://localhost/showmethemoney";
+		String driver = "com.mysql.cj.jdbc.Driver";
 		String usuario = "root";
 		String password = "root";
 		
