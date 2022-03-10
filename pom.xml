@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sinensia</groupId>
-	<artifactId>Probando</artifactId>
+	<artifactId>Showmethemoney</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>Probando Maven Webapp</name>
+	<name>Showmethemoney</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
@@ -39,7 +39,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>Probando</finalName>
+		<finalName>Showmethemoney</finalName>
 		<pluginManagement>
 			<!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
 			<plugins>
