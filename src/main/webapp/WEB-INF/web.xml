@@ -14,4 +14,7 @@
   	<filter-name>filtrousuario</filter-name>
   	<url-pattern>*.jsp</url-pattern>
   </filter-mapping>
+  <welcome-file-list>
+  	<welcome-file>redirect.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>
