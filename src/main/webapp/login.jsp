@@ -1,5 +1,5 @@
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:useBean id="bean" class="beans.BeanUsuario"/>
 <%
     bean.setSesion(session);
@@ -11,23 +11,30 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Credenciales de usuario</h1>
+        <h2>Bienvenido</h2>
         <form method="post">
-            <label>Usuario: </label>
+            <label>NOMBRE </label>
             <input type="text" name="usuario" required/><br/>
-            <label>Password: </label>
+            <label>PASSWORD </label>
             <input type="text" name="password" required/><br/>
-            <button type="submit">Validar Usuario</button>
+            <button type="submit">Login</button>
         </form>
+        <p>¿Aún no estás registrado?</p>
+        <a href="/registro.jsp">Registrarse</a>
         <%
             String user = request.getParameter("usuario");
             String pass = request.getParameter("password");
             if(user != null){
-                if(bean.validarUsuario(user, pass) == true){
-                    //LE LLEVAMOS A LA ZONA DE SEGURIDAD
-                    response.sendRedirect("smtm/home.jsp");
-                } else {
-                    out.println("<h1 style='color:red'>Datos incorrectos</h1>");
+            	try{
+	                if(bean.validarUsuario(user, pass) != true){
+	                	out.println("<h2 id='error' style='color:red'>Datos incorrectos</h2>");
+	                } else {    	
+	                	//LE LLEVAMOS A LA ZONA DE SEGURIDAD
+	                    response.sendRedirect("smtm/home.jsp");
+                	}
+            	}catch (Exception e){
+                	e.printStackTrace();
+                	out.println("<h2 style='color:red'>Se ha producido un error intentelo de nuevo más tarde</h2>");
                 }
             }
         %>

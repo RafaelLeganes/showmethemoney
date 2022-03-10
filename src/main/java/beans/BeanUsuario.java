@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import models.Usuario;
 import repositories.RepositoryUsuario;
+import utilities.conversorSHA256;
 
 public class BeanUsuario {
 	
@@ -18,8 +19,9 @@ public class BeanUsuario {
 		this.repo = new RepositoryUsuario();
 	}
 	
-	public boolean validarUsuario(String nombre, String pass) {
-		Usuario user = repo.buscarUsuario(nombre, pass);
+	public boolean validarUsuario(String nombre, String pass) throws Exception{
+		String passSHA256 = new conversorSHA256().convertirSHA256(pass);
+		Usuario user = repo.get(nombre, passSHA256);
 		if(user !=null) {
 			sesion.setAttribute("USUARIO", user);
 			return true;

@@ -2,6 +2,7 @@ package models;
 
 public class Usuario {
 	
+	private int idUsuario;
 	private String nombre;
 	private String password;
 	private String correo;
@@ -9,13 +10,22 @@ public class Usuario {
 	public Usuario() {		
 	}
 	
-	public Usuario(String nombre, String password, String correo) {
+	public Usuario(int idUsuario, String nombre, String password, String correo) {
 		super();
+		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.password = password;
 		this.correo = correo;
 	}
 	
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
