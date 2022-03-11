@@ -7,6 +7,6 @@ public interface UserDao<T> {
 
 	public T get(String nombre, String pass) throws SQLException;
 	
-	public int add(T modelo) throws SQLException;
+	public T add(T modelo) throws SQLException;
 
 }
