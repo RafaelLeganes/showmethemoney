@@ -1,4 +1,4 @@
-package repositories;
+package com.sinensia.repositories;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,8 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.sinensia.contracts.UserDao;
-
-import models.Usuario;
+import com.sinensia.models.Usuario;
 
 
 public class RepositoryUsuario extends RepositoryBaseDatos implements UserDao<Usuario>{
