@@ -1,6 +1,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="models.Usuario" %>
+<%@page import="com.sinensia.models.Usuario" %>
 <jsp:useBean id="bean" class="beans.BeanMovimiento"/>
 <%
     bean.setSesion(session);

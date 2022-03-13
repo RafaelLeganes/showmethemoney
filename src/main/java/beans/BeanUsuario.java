@@ -4,8 +4,9 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpSession;
 
-import models.Usuario;
-import repositories.RepositoryUsuario;
+import com.sinensia.models.Usuario;
+import com.sinensia.repositories.RepositoryUsuario;
+
 import utilities.conversorSHA256;
 
 public class BeanUsuario {

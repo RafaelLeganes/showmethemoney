@@ -1,4 +1,4 @@
-package repositories;
+package com.sinensia.repositories;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
