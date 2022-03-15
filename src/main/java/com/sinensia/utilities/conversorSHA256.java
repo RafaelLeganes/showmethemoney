@@ -1,4 +1,4 @@
-package utilities;
+package com.sinensia.utilities;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
