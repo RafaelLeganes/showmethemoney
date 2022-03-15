@@ -1,4 +1,4 @@
-package repositories;
+package com.sinensia.repositories;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ public class RepositoryBaseDatos {
 	
 	static {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
 		}
