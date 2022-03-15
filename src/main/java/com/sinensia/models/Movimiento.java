@@ -7,13 +7,12 @@ public class Movimiento {
 	private int idMovimiento;
 	private float importe;
 	private int idUsuario;
-	private int idCategoria;
+	private int idCategoria;	
 	private String nombre;
 	private LocalDate fecha;
 	
 	public Movimiento() {
 		super();
-		
 	}
 
 	public Movimiento(int idMovimiento, float importe, int idUsuario, int idCategoria, String nombre, LocalDate fecha) {
@@ -73,6 +72,5 @@ public class Movimiento {
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
-	
 	
 }
