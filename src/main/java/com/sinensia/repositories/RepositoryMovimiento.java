@@ -10,23 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import com.sinensia.contracts.MovimientoDao;
+import com.sinensia.contracts.IDao;
+import com.sinensia.contracts.IDaoGetConParametros;
 import com.sinensia.models.Categoria;
 import com.sinensia.models.Movimiento;
 import com.sinensia.models.Usuario;
 
-public class RepositoryMovimiento extends RepositoryBaseDatos implements MovimientoDao<Movimiento>{
+
+public class RepositoryMovimiento extends RepositoryBaseDatos implements IDao<Movimiento>, IDaoGetConParametros<Movimiento>{
 	
 	private Connection connect;
 
-	@Override
-	public List<Movimiento> get(Usuario user, Categoria categoria, String fecha) throws SQLException {
+	public List<Movimiento> get(Usuario user, Categoria categoria, String fecha) throws SQLException{
 		List<Movimiento> listaMovimientos = new ArrayList<Movimiento>();
 		PreparedStatement pst = null;
-		ResultSet rs = null;	
+		ResultSet rs = null;
 		try {
 			connect = super.getconnection();
-			String sql = "SELECT * FROM Movimientos WHERE idUsuario=? and idCategoria=? and fecha BETWEEN ? AND LAST_DAY(?)";
+			String sql = "SELECT * FROM Movimientos WHERE idUsuario=? and idCategoria=? and fecha BETWEEN ? AND LAST_DAY(?) order by fecha asc";
 			pst = connect.prepareStatement(sql);
 			pst.setInt(1, user.getIdUsuario());
 			pst.setInt(2, categoria.getIdCategoria());
@@ -97,7 +98,7 @@ public class RepositoryMovimiento extends RepositoryBaseDatos implements Movimie
 	}
 	
 	@Override
-	public int remove(int id) throws SQLException {	
+	public int remove(int id) throws SQLException {
 		PreparedStatement preparedStatement = null; 
 		ResultSet rsKey = null;
 		int borrado=0;
@@ -151,5 +152,28 @@ public class RepositoryMovimiento extends RepositoryBaseDatos implements Movimie
 			}
 		}
 		return modificado;
+	}
+	
+	public int remove(int idCategoria, int idUsuario, Connection connect) throws SQLException {
+		PreparedStatement preparedStatement = null; 
+		ResultSet rsKey = null;
+		int borrado=0;
+		try {
+			preparedStatement = connect.prepareStatement("DELETE FROM Movimientos WHERE idCategoria=? AND idUsuario=?");
+			preparedStatement.setInt(1, idCategoria);
+			preparedStatement.setInt(2, idUsuario);	
+			borrado =preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(preparedStatement != null) {
+				preparedStatement.close();
+			}
+			if(rsKey != null) {
+				rsKey.close();
+			}
+		}
+		return borrado;
 	}
 }
