@@ -3,7 +3,7 @@ package com.sinensia.models;
 import java.util.List;
 
 public class Categoria {
-	
+
 	private int idUsuario;
 	private int idCategoria;
 	private String nombre;
@@ -70,5 +70,4 @@ public class Categoria {
 	public void setMovimientos(List<Movimiento> movimientos) {
 		this.movimientos = movimientos;
 	}
-	
 }
