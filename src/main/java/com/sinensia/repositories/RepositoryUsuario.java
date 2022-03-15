@@ -4,6 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
+
 
 import com.sinensia.contracts.UserDao;
 import com.sinensia.models.Usuario;
@@ -51,14 +55,18 @@ public class RepositoryUsuario extends RepositoryBaseDatos implements UserDao<Us
 		return null;
 	}
 
+
+
 	@Override
-	public Usuario add(Usuario usuario) throws SQLException {
+	public Usuario add(Usuario usuario, Properties appProps) throws SQLException {
+		RepositoryCategoria repo = new RepositoryCategoria();
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		int idUsuario = 0;
 		try {
 			connect = super.getconnection();
-			String sql = "INSERT * INTO usuario(nombre, correo, password)" + "VALUE (?, ?, ?)";
+			connect.setAutoCommit(false);
+			String sql = "INSERT INTO Usuarios(nombre, correo, password)" + "VALUE (?, ?, ?)";
 			pst = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pst.setString(1, usuario.getNombre());
 			pst.setString(2, usuario.getCorreo());
@@ -68,10 +76,23 @@ public class RepositoryUsuario extends RepositoryBaseDatos implements UserDao<Us
 			rs = pst.getGeneratedKeys();
 			rs.next();
 			idUsuario = rs.getInt(1);
-			
-			
-		} catch (SQLException e) {
+			Set<String> listapropiedades = appProps.stringPropertyNames();
+			for (Iterator<String> it = listapropiedades.iterator(); it.hasNext();) {
+				String nombre = (String) it.next();
+				String tipo = appProps.getProperty(nombre);
+				repo.addCategoriasInicio(nombre, idUsuario, tipo, connect);
+			}
+			connect.commit();
+		} catch (SQLException  e) {
 			e.printStackTrace();
+			if(connect != null) {
+				try{
+					connect.rollback();
+				} catch(SQLException e1) {
+					e1.printStackTrace();
+					throw e1;
+				}
+			}
 			throw e;
 		} finally {
 			if (pst != null)
@@ -81,7 +102,6 @@ public class RepositoryUsuario extends RepositoryBaseDatos implements UserDao<Us
 			if (connect != null)
 				connect.close();
 		}
-		
 		usuario.setIdUsuario(idUsuario);
 		return usuario;
 	}
