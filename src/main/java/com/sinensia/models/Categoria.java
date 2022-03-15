@@ -8,18 +8,17 @@ public class Categoria {
 	private int idCategoria;
 	private String nombre;
 	private float importeTotal;
-	private char tipo; 
+	private char tipo;
 	private List<Movimiento> movimientos;
 	
-	public Categoria(int idUsuario, int idCategoria, String nombre, float importeTotal, char tipo,
-			List<Movimiento> movimientos) {
+	public Categoria(int idUsuario, int idCategoria, String nombre, float importeTotal, char tipo, List<Movimiento> movimientos) {
 		super();
 		this.idUsuario = idUsuario;
 		this.idCategoria = idCategoria;
 		this.nombre = nombre;
-		this.importeTotal = importeTotal;
-		this.tipo = tipo;
 		this.movimientos = movimientos;
+		this.tipo = tipo;
+		this.importeTotal = importeTotal;
 	}
 	
 	public Categoria() {}
@@ -71,6 +70,4 @@ public class Categoria {
 	public void setMovimientos(List<Movimiento> movimientos) {
 		this.movimientos = movimientos;
 	}
-	
-	
 }
