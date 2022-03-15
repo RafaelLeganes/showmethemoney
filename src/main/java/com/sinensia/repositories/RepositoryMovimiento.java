@@ -9,11 +9,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.sinensia.contracts.IDao;
 import com.sinensia.contracts.IDaoGetConParametros;
 import com.sinensia.models.Categoria;
 import com.sinensia.models.Movimiento;
 import com.sinensia.models.Usuario;
+
 
 public class RepositoryMovimiento extends RepositoryBaseDatos implements IDao<Movimiento>, IDaoGetConParametros<Movimiento>{
 	
@@ -174,5 +176,4 @@ public class RepositoryMovimiento extends RepositoryBaseDatos implements IDao<Mo
 		}
 		return borrado;
 	}
-	
 }
