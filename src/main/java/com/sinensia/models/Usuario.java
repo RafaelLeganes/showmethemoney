@@ -1,4 +1,4 @@
-package models;
+package com.sinensia.models;
 
 public class Usuario {
 	
