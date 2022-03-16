@@ -33,7 +33,7 @@ bean.setSesion(session);
 					<div class="container">
 						<div class="row">
 							<div class="caja-login col-lg-10 col-xl-6 mx-auto">
-								<h4 class="display-5 my-4">¡Sonríe! Estás en Show Money</h4>
+								<h4 class="display-5 my-4">Â¡SonrÃ­e! EstÃ¡s en Show Money</h4>
 								<form method="post">
 									<div class="form-group mb-4">
 										<input id="inputNombre" type="text" name="nombre"
@@ -53,12 +53,12 @@ bean.setSesion(session);
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox"
 											id="checkAcepto"><label class="form-check-label"
-											for="checkAcepto">Condiones y términos</label>
+											for="checkAcepto">Condiones y tÃ©rminos</label>
 									</div>
 									<button type="submit"
 										class="btn btn-block mt-5 mb-4 rounded-pill shadow-s">Registrarse</button>
 									<div class="d-flex justify-content-center links mb-3">
-										¿Ya tienes cuenta? <a href="login.jsp">Login</a>
+										Â¿Ya tienes cuenta? <a href="login.jsp">Login</a>
 									</div>
 								</form>
 								<c:if test="${not empty param.nombre && not empty param.email && not empty param.password}">

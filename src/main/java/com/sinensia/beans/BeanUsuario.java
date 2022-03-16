@@ -48,7 +48,7 @@ public class BeanUsuario {
 			}
 		} catch (SQLException ex) {
 			if(ex.getMessage().contains("UNIQUE"))
-			
+
 				sesion.setAttribute("MensajeError", "Este correo ya esxite");				
 		}	
 		return false;
