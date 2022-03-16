@@ -56,7 +56,6 @@ public class RepositoryUsuario extends RepositoryBaseDatos implements UserDao<Us
 	}
 
 
-
 	@Override
 	public Usuario add(Usuario usuario, Properties appProps) throws SQLException {
 		RepositoryCategoria repo = new RepositoryCategoria();
