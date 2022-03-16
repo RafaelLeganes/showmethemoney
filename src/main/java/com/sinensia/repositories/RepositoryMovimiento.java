@@ -15,6 +15,7 @@ import com.sinensia.models.Categoria;
 import com.sinensia.models.Movimiento;
 import com.sinensia.models.Usuario;
 
+
 public class RepositoryMovimiento extends RepositoryBaseDatos implements IDao<Movimiento>, IDaoGetConParametros<Movimiento>{
 	
 	private Connection connect;
@@ -174,5 +175,4 @@ public class RepositoryMovimiento extends RepositoryBaseDatos implements IDao<Mo
 		}
 		return borrado;
 	}
-	
 }
