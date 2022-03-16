@@ -113,7 +113,7 @@
 									<div class="mb-3">
 										<label for="fechaimporte">Fecha Ingreso:</label> <input
 											type="date" class="form-control" required
-											id="fechaNacimiento" placeholder="dd/mm/aaaa"
+											id="fechaimporte" placeholder="dd/mm/aaaa"
 											name="fechaimporte">
 									</div>
 								</div>
@@ -159,7 +159,7 @@
 									<div class="mb-3">
 										<label for="fechaimporte">Fecha Gasto:</label> <input
 											type="date" class="form-control" required
-											id="fechaNacimiento" placeholder="dd/mm/aaaa"
+											id="fechaimporte" placeholder="dd/mm/aaaa"
 											name="fechaimporte">
 									</div>
 								</div>
