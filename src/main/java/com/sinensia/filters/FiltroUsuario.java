@@ -1,4 +1,4 @@
-package filters;
+package com.sinensia.filters;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -30,7 +30,6 @@ public class FiltroUsuario implements Filter{
         HttpServletResponse respuesta = (HttpServletResponse)response;
         //NECESITAMOS SABER LA URL DONDE ESTAMOS NAVEGANDO
         String url = peticion.getRequestURI();
-        System.out.println("Url: " + url);
         if(url.contains("smtm")){
             //AQUI DEBEMOS ACTUAR
             HttpSession sesion = peticion.getSession();
