@@ -12,10 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-/**
- *
- * @author Rafael
- */
 public class FiltroUsuario implements Filter{
 
     @Override

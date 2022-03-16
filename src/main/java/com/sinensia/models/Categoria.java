@@ -3,7 +3,6 @@ package com.sinensia.models;
 import java.util.List;
 
 public class Categoria {
-
 	private int idUsuario;
 	private int idCategoria;
 	private String nombre;
