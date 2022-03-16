@@ -63,13 +63,15 @@ public class HomeController extends HttpServlet {
 		List<Categoria> listaCategorias = null;
 		try {
 			serviceMovimiento.add(user, importe, nombre, categoria, fecha);
-			listaCategorias = serviceCategoria.getCategorias(user, request.getParameter("fecha"));
+			listaCategorias = serviceCategoria.getCategorias(user, fecha);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/smtm/Home.jsp");
 		request.setAttribute("Lista", listaCategorias);
+		request.setAttribute("fecha", fecha);
+		request.setAttribute("mes", serviceCategoria.devolverMes(fecha));
 		rd.forward(request, response);
 	}
 

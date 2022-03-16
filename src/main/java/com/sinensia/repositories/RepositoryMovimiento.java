@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.sinensia.contracts.IDao;
 import com.sinensia.contracts.IDaoGetConParametros;
 import com.sinensia.models.Categoria;
