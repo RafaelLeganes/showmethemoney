@@ -1,0 +1,22 @@
+@charset "ISO-8859-1";
+
+.login
+{
+  min-height: 100vh;
+}
+
+.caja-login{
+	background-color: #FFD6DB;
+	border-radius: 15px;
+
+}
+
+
+.bg-image {
+  background: #F4666F;
+
+}
+
+.btn {
+	background: #F4666F;
+}
