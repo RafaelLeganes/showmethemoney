@@ -15,7 +15,9 @@ bean.setSesion(session);
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
-
+<style type="text/css">
+	<%@ include file = "registro.css"%>
+</style>
 
 </head>
 <body>
@@ -28,11 +30,11 @@ bean.setSesion(session);
 			</div>
 			<!-- el contendio de la otra mitad -->
 			<div class="col-md-7">
-				<div class="login d-flex align-items-center py-5">
+				<div class="registro d-flex align-items-center py-5">
 					<!-- Demo content-->
 					<div class="container">
 						<div class="row">
-							<div class="caja-login col-lg-10 col-xl-6 mx-auto">
+							<div class="col-lg-10 col-xl-6 mx-auto">
 								<h4 class="display-5 my-4">¡Sonríe! Estás en Show Money</h4>
 								<form method="post">
 									<div class="form-group mb-4">
