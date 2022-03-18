@@ -15,8 +15,6 @@
 	</style>
 </head>
 <body>
-	
-
 	<div class="d-flex">
 		<div id="contenedor-perfil" class="bg-primary">
 		
