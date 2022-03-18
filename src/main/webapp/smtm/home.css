@@ -1,0 +1,32 @@
+@charset "ISO-8859-1";
+
+
+body{
+	overflow: hidden;
+	color: #E4E3ED;
+}
+
+a {
+	text-decoration: none;
+}
+
+#contenedor-perfil {
+	min-height: 100vh;
+}
+
+#contenedor-perfil .menu {
+	width: 18rem;
+}
+
+#contenedor-perfil .logo {
+	padding: .875rem 1.25rem
+}
+
+bg-primary{
+	color: #E4E3ED;
+}
+
+#contenido{
+	height: 100vh;
+	padding: 20px;
+}
