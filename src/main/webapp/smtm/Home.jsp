@@ -81,7 +81,14 @@
 										<c:set var="total" value="${0}" />
 										<c:forEach items="${Lista}" var="categoria" varStatus="estado">
 											<tr>
-												<td><a href="Movimientos?idCategoria=${categoria.idCategoria}&nombre=${categoria.nombre}&fecha=${fecha}">${categoria.nombre}</a></td>
+												<c:choose>
+													<c:when test="${categoria.tipo eq 'G'.charAt(0)}">
+														<td id="rojo"><a href="Movimientos?idCategoria=${categoria.idCategoria}&nombre=${categoria.nombre}&fecha=${fecha}">${categoria.nombre}</a></td>
+													</c:when>
+													<c:otherwise>
+														<td id="azul"><a href="Movimientos?idCategoria=${categoria.idCategoria}&nombre=${categoria.nombre}&fecha=${fecha}">${categoria.nombre}</a></td>
+													</c:otherwise>
+												</c:choose>
 												<td>${categoria.importeTotal}€"</td>
 												<c:choose>
 													<c:when test="${categoria.tipo eq 'G'.charAt(0)}">
