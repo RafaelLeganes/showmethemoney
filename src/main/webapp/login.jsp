@@ -49,8 +49,7 @@ bean.setSesion(session);
 									<button type="submit"
 										class="btn btn-block mt-5 mb-4 rounded-pill shadow-s">Login</button>
 									<div class="d-flex justify-content-center links mb-3">
-										No tienes cuenta?<a href="registro.jsp">Registrarse</a>
-
+										<p class="mr-3">No tienes cuenta?</p><a href="registro.jsp">Registrarse</a>
 									</div>
 								</form>
 							</div>

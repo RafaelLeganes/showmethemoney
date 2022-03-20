@@ -35,7 +35,7 @@ bean.setSesion(session);
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-10 col-xl-6 mx-auto">
-								<h4 class="display-5 my-4">¡Sonríe! Estás en Show Money</h4>
+								<h4 class="display-5 my-4 text-center">¿A qué esperas? Empieza a usar ShowMoney</h4>
 								<form method="post">
 									<div class="form-group mb-4">
 										<input id="inputNombre" type="text" name="nombre"
@@ -60,7 +60,7 @@ bean.setSesion(session);
 									<button type="submit"
 										class="btn btn-block mt-5 mb-4 rounded-pill shadow-s">Registrarse</button>
 									<div class="d-flex justify-content-center links mb-3">
-										¿Ya tienes cuenta? <a href="login.jsp">Login</a>
+										<p class="mr-3">¿Ya tienes cuenta? </p> <a href="login.jsp">Login</a>
 									</div>
 								</form>
 								<c:if test="${not empty param.nombre && not empty param.email && not empty param.password}">
