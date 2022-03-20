@@ -16,8 +16,9 @@ añadir nuevos registros de manera fácil y rápida y asignarlos a categorías p
 * Mysql DataBase
 * Jsp/Servlet
 * JUnit Test
-
-
+* Adobe XD para el diseño - [ShowMeTheMoney.zip](https://github.com/RafaelLeganes/showmethemoney/files/8311977/ShowMeTheMoney.zip)
+* Iconos IonsIcons - https://ionic.io/ionicons/v4
+* Imágenes sujetas a derechos - https://www.flaticon.es/ 
 
 ## Usage
 
