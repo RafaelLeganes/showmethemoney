@@ -1,9 +1,12 @@
 @charset "ISO-8859-1";
 
-
+:root {
+	--primary: #100760;
+	--light: #FFFFFF;
+	--primarylight: #E4E3ED;
+}
 body{
-	overflow: hidden;
-	color: #E4E3ED;
+	color: var(--primarylight);
 }
 
 a {
@@ -14,6 +17,10 @@ a {
 	min-height: 100vh;
 }
 
+.color-sidebar{
+	background-color: var(--primarylight);
+}
+
 #contenedor-perfil .menu {
 	width: 18rem;
 }
@@ -22,11 +29,55 @@ a {
 	padding: .875rem 1.25rem
 }
 
-bg-primary{
-	color: #E4E3ED;
+.bg-primary{
+	background-color: var(--primary) !important;
+}
+.bg-light{ background-color: var(--light) !important;}
+.bg-mix{ background-color: var(--primarylight);}
+
+
+
+.estado {
+	border-right: 1px solid;
+	color: grey;
+}
+.iconos-sidebar{
+	margin-right: 7px;
 }
 
-#contenido{
-	height: 100vh;
-	padding: 20px;
+
+
+.flecha-izqda{
+	margin-right: 10px;
 }
+.flecha-drcha{
+	margin-left: 10px;
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 12px;
+    text-align: center;
+    border-width: medium;
+    margin:5px 30px;
+}
+
+.texto{
+	 text-align: right;
+}
+
+.mes{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+
+/************* CATEGORIAS *******************/
+
+.img {
+	max-width: 35px;
+}
+

@@ -8,115 +8,133 @@
 <title>JSP Page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
   	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  	
+  	<link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>	
   	<style type="text/css">
 		<%@ include file = "home.css"%>
 	</style>
 </head>
 <body>
 	<div class="d-flex">
-		<div id="contenedor-perfil" class="bg-primary">
-		
+		<div id="contenedor-perfil" class="color-sidebar">		
 			<!-- Sidebar -->
-			<div class="logo border-bottom">
-				<img alt="" src="../images/usuario.png" width="100" height="100" class="img-fluid">
-				<p class="mt-2">
+			<div class="logo border-bottom bg-primary">
+				<img alt="" src="../images/user.png" width="75" height="75" class="img-fluid">
+				<p class="mt-3">
 					<c:out value="${sessionScope.USUARIO.nombre}" />
 				</p>	
 			</div>
 			<div class="menu">
-				<a href="Categorias" class="d-block text-light p-3">Categorias</a> 
-				<a href="#" class="d-block text-light p-3">Cuenta</a> 
-				<a href="../cerrar.jsp" class="d-block text-light p-3">Logout</a>
+				<a href="Categorias" class="d-block text-dark p-3"><i class="icon ion-md-apps iconos-sidebar lead
+				"></i>Categorias</a> 
+				<a href="#" class="d-block text-dark p-3"><i class="icon ion-md-person lead iconos-sidebar "></i>Perfil</a> 
+				<a href="../cerrar.jsp" class="d-block text-dark p-3"><i class="icon ion-md-power iconos-sidebar lead"></i>Logout</a>
 			</div>
 		</div>
 		<!-- Cuentas -->
-			<div id="contenido">
-				<section class="py-3">
-					<div class="container border-bottom">
-						<div class="row">
-							<div class="col-lg-12 border-bottom text-center">
-								<a id="mesAnterior" href="Home?fecha=${fecha}&accion=anterior">Aquí una imagen de flechita </a><span id="mes">${mes}</span><a id="mesSiguiente" href="Home?fecha=${fecha}&accion=siguiente"> Aquí otra imagen de flechita</a>	
-							</div>							
-						</div>
-					</div>
-				</section>
-				<section>
-					<div class="container">
-						<div class="card">
-							<div class="card-body">
-
-								<div class="row">
-									<div class="col-lg-4">
-										<h4 class="text-dark">Ingresos</h4>
-										<span id="ingresos"></span>
-									</div>
-									<div class="col-lg-4">
-										<h4 class="text-dark">Gastos</h4>
-										<span id="gastos"></span>
-									</div>
-									<div class="col-lg-4">
-										<h4 class="font-weight-bold text-dark">Total</h4>
-										<span id="total"></span>
-									</div>	
-								</div>
+			<div class="w-100">
+					<section>
+						<div class="container">
+							<div class="row">
+								<div class="col-lg-12 text-center my-2">
+									<a id="mesAnterior" href="Home?fecha=${fecha}&accion=anterior"><i class="icon ion-md-arrow-round-back text-dark flecha-izqda"></i></a><span id="mes" class="text-dark mes">${mes}</span><a id="mesSiguiente" href="Home?fecha=${fecha}&accion=siguiente"><i class="icon ion-md-arrow-round-forward text-dark flecha-drcha"></i></a>	
+								</div>							
 							</div>
-						</div>	
-					</div>
-				</section>
+						</div>
+						<div class="container">
+							<div class="card shadow p-3 my-1 bg-white rounded border-0">
+								<div class="card-body ">
+									<div class="row">
+										<div class="col-lg-4 d-flex estado my-3">
+											<div class="mx-auto"> 
+												<h4 class="text-dark">Ingresos</h4>
+												<span id="ingresos" class="text-success"></span>
+											</div>
+										</div>
+										<div class="col-lg-4 d-flex estado my-3">
+											<div class="mx-auto">
+												<h4 class="text-dark">Gastos</h4>
+												<span id="gastos" class="text-danger"></span>
+											</div>
+										</div>
+										<div class="col-lg-4 d-flex my-3">
+											<div class="mx-auto">
+												<h4 class="font-weight-bold text-dark">Total</h4>
+												<span id="total" class="text-dark"></span>
+											</div>
+										</div>	
+									</div>
+								</div>
+							</div>	
+						</div>
+					</section>
+			
 				
 				<section class="py-5">
 					<div class="container"> 
 						<div class="row">
-							<div id="categorias" class="text-dark">
-								<div id="listaCategorias">
-									<table>
-										<tr>
-											<td>Categoria</td>
-											<td>Importe</td>
-										</tr>
-										<c:set var="gastos" value="${0}" />
-										<c:set var="ingresos" value="${0}" />
-										<c:set var="total" value="${0}" />
-										<c:forEach items="${Lista}" var="categoria" varStatus="estado">
-											<tr>
-												<c:choose>
-													<c:when test="${categoria.tipo eq 'G'.charAt(0)}">
-														<td id="rojo"><a href="Movimientos?idCategoria=${categoria.idCategoria}&nombre=${categoria.nombre}&fecha=${fecha}">${categoria.nombre}</a></td>
-													</c:when>
-													<c:otherwise>
-														<td id="azul"><a href="Movimientos?idCategoria=${categoria.idCategoria}&nombre=${categoria.nombre}&fecha=${fecha}">${categoria.nombre}</a></td>
-													</c:otherwise>
-												</c:choose>
-												<td>${categoria.importeTotal}€"</td>
-												<c:choose>
-													<c:when test="${categoria.tipo eq 'G'.charAt(0)}">
-														<c:set var="gastos" value="${gastos+categoria.importeTotal}" />
-													</c:when>
-													<c:otherwise>
-														<c:set var="ingresos" value="${ingresos+categoria.importeTotal}" />
-													</c:otherwise>
-												</c:choose>
-											</tr>
-										</c:forEach>
-										<c:set var="total" value="${ingresos-gastos}" />
-									</table>
-									<script type="text/javascript">
-										var ingresos = (<c:out value="${ingresos}"/>).toFixed(2);
-										var gastos = (<c:out value="${gastos}"/>).toFixed(2);
-										var total = (<c:out value="${total}"/>).toFixed(2);
-										document.getElementById("ingresos").innerHTML = ingresos + "€";
-										document.getElementById("gastos").innerHTML = gastos + "€";
-										document.getElementById("total").innerHTML = total + "€";
-									</script>
+							<div class="col-lg-12">
+								<div class="card shadow p-2 my-2 bg-white rounded border-0">
+									<div class="card-body">
+										<div id="categorias">
+											<div id="listaCategorias" >
+												<table class="table table-responsive table-borderless">
+													<thead>
+														<tr>
+															<th scope="col">Categorías</th>
+      														<th class="texto" scope="col">Importes</th>
+														</tr>
+													</thead>
+													<c:set var="gastos" value="${0}" />
+													<c:set var="ingresos" value="${0}" />
+													<c:set var="total" value="${0}" />
+													<c:forEach items="${Lista}" var="categoria" varStatus="estado">
+														<tr>
+															<c:choose>
+																<c:when test="${categoria.tipo eq 'G'.charAt(0)}">
+																	<td id="rojo"><a class="text-dark" href="Movimientos?idCategoria=${categoria.idCategoria}&nombre=${categoria.nombre}&fecha=${fecha}">${categoria.nombre}</a></td>
+																</c:when>
+																<c:otherwise>
+																	<td id="azul"><a class="text-dark" href="Movimientos?idCategoria=${categoria.idCategoria}&nombre=${categoria.nombre}&fecha=${fecha}">${categoria.nombre}</a></td>
+																</c:otherwise>
+															</c:choose>
+															<td class="text-dark texto">${categoria.importeTotal}€"</td>
+															<c:choose>
+																<c:when test="${categoria.tipo eq 'G'.charAt(0)}">
+																	<c:set var="gastos" value="${gastos+categoria.importeTotal}" />
+																</c:when>
+																<c:otherwise>
+																	<c:set var="ingresos" value="${ingresos+categoria.importeTotal}" />
+																</c:otherwise>
+															</c:choose>
+														</tr>
+													</c:forEach>
+													<c:set var="total" value="${ingresos-gastos}" />
+												</table>
+												<div>
+												
+												
+												<script type="text/javascript">
+													var ingresos = (<c:out value="${ingresos}"/>).toFixed(2);
+													var gastos = (<c:out value="${gastos}"/>).toFixed(2);
+													var total = (<c:out value="${total}"/>).toFixed(2);
+													document.getElementById("ingresos").innerHTML = ingresos + "€";
+													document.getElementById("gastos").innerHTML = gastos + "€";
+													document.getElementById("total").innerHTML = total + "€";
+												</script>
+											</div>
+										</div>
+									</div>
+
 								</div>
 							</div>
 						</div>
 						<div id="acciones">
 							<div class="container">
-								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">+</button>
-								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal2">-</button>
+								<div class="text-center mt-2 ">
+									<button type="button" class="btn btn-circle btn-xl btn-outline-success" data-bs-toggle="modal" data-bs-target="#myModal"><i class="icon ion-md-add lead"></i></button>
+									<button type="button" class="btn btn-circle btn-xl btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModal2"><i class="icon ion-md-remove lead"></i></button>
+								</div>
 								<div class="modal" id="myModal">
 									<form method="post">
 										<div class="modal-dialog">
@@ -210,6 +228,8 @@
 									</form>
 								</div>
 							</div>
+						</div>
+						
 						</div>
 					</div>
 				</section>
