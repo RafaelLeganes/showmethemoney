@@ -111,7 +111,6 @@ bean.setSesion(session);
 						</div>
 					</div>
 					<!-- End -->
-
 				</div>
 			</div>
 			<!-- End -->
