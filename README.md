@@ -15,6 +15,7 @@ añadir nuevos registros de manera fácil y rápida y asignarlos a categorías p
 * Maven Webpack
 * Mysql DataBase
 * Jsp/Servlet
+* JSTL 1.2.1
 * JUnit Test
 * Adobe XD para el diseño - [ShowMeTheMoney.zip](https://github.com/RafaelLeganes/showmethemoney/files/8311977/ShowMeTheMoney.zip)
 * Iconos IonsIcons - https://ionic.io/ionicons/v4
@@ -29,6 +30,7 @@ popup en el cuál se podrán introducir los ingresos o gastos según corresponda
 a una categoría.
 * Una vez realizado dicho proceso, podremos observar ese importe en la categoría y el contador en 
 forma de barra.
+* Las categorias se crean automaticamente al registrarse el usuario desde un archivo app.properties situado en los resources
 
 
 
