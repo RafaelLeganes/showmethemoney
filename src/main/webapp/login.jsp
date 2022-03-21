@@ -6,7 +6,7 @@
 bean.setSesion(session);
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <title>Bootstrap Example</title>
 <meta charset="utf-8">
@@ -46,6 +46,25 @@ bean.setSesion(session);
 											placeholder="Password" required
 											class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
 									</div>
+										<c:if test="${not empty param.usuario}">
+											<c:set var="correcto"
+												value='<%=bean.validarUsuario(request.getParameter("usuario"), request.getParameter("password"))%>' />
+											<c:choose>
+												<c:when test="${correcto == false}">
+													<c:choose>
+														<c:when test="${MensajeError != null}">
+															<h4 id='error' style='color: red'>Error: ${MensajeError}</h4>
+														</c:when>
+														<c:otherwise>
+															<h4 id='error' style='color: red'>Datos incorrectos: Nombre o contraseña Erroneos</h4>
+														</c:otherwise>	
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<c:redirect url="smtm/Home" />
+												</c:otherwise>
+											</c:choose>
+										</c:if>
 									<button type="submit"
 										class="btn btn-block mt-5 mb-4 rounded-pill shadow-s">Login</button>
 									<div class="d-flex justify-content-center links mb-3">
@@ -61,17 +80,5 @@ bean.setSesion(session);
 			<!-- End -->
 		</div>
 	</div>
-	<c:if test="${not empty param.usuario}">
-		<c:set var="correcto"
-			value='<%=bean.validarUsuario(request.getParameter("usuario"), request.getParameter("password"))%>' />
-		<c:choose>
-			<c:when test="${correcto == false}">
-				<h2 id='error' style='color: red'>Datos incorrectos</h2>
-			</c:when>
-			<c:otherwise>
-				<c:redirect url="smtm/Home" />
-			</c:otherwise>
-		</c:choose>
-	</c:if>
 </body>
 </html>

@@ -153,7 +153,7 @@ public class RepositoryMovimiento extends RepositoryBaseDatos implements IDao<Mo
 		return modificado;
 	}
 	
-	public int remove(int idCategoria, int idUsuario, Connection connect) throws SQLException {
+	public int removeCategoriaMovimientos(int idCategoria, int idUsuario, Connection connect) throws SQLException {
 		PreparedStatement preparedStatement = null; 
 		ResultSet rsKey = null;
 		int borrado=0;
@@ -161,6 +161,28 @@ public class RepositoryMovimiento extends RepositoryBaseDatos implements IDao<Mo
 			preparedStatement = connect.prepareStatement("DELETE FROM Movimientos WHERE idCategoria=? AND idUsuario=?");
 			preparedStatement.setInt(1, idCategoria);
 			preparedStatement.setInt(2, idUsuario);	
+			borrado =preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(preparedStatement != null) {
+				preparedStatement.close();
+			}
+			if(rsKey != null) {
+				rsKey.close();
+			}
+		}
+		return borrado;
+	}
+	
+	public int removeUsuarioMovimientos(int idUsuario, Connection connect) throws SQLException {
+		PreparedStatement preparedStatement = null; 
+		ResultSet rsKey = null;
+		int borrado=0;
+		try {
+			preparedStatement = connect.prepareStatement("DELETE FROM Movimientos WHERE idUsuario=?");
+			preparedStatement.setInt(1, idUsuario);
 			borrado =preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

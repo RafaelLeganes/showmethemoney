@@ -104,4 +104,75 @@ public class RepositoryUsuario extends RepositoryBaseDatos implements UserDao<Us
 		usuario.setIdUsuario(idUsuario);
 		return usuario;
 	}
+
+
+	@Override
+	public int modify(Usuario usuario) throws SQLException {
+		PreparedStatement preparedStatement = null; 
+		ResultSet rsKey = null;
+		int modificado=0;
+		try {
+			connect = super.getconnection();
+			modificado = usuario.getIdUsuario();
+			preparedStatement = connect.prepareStatement("UPDATE Usuarios SET nombre=?, correo=?, password=? WHERE idUsuario=?");
+			preparedStatement.setString(1, usuario.getNombre());
+			preparedStatement.setString(2, usuario.getCorreo());
+			preparedStatement.setString(3, usuario.getPassword());
+			preparedStatement.setInt(4, usuario.getIdUsuario());
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(preparedStatement != null) {
+				preparedStatement.close();
+			}
+			if(rsKey != null) {
+				rsKey.close();
+			}
+			if(connect != null) {
+				connect.close();
+			}
+		}
+		return modificado;
+	}
+
+	@Override
+	public int remove(Usuario user) throws SQLException {
+		PreparedStatement preparedStatement = null; 
+		ResultSet rsKey = null;
+		int borrado=0;
+		try {
+			connect = super.getconnection();
+			connect.setAutoCommit(false);
+			RepositoryCategoria repo = new RepositoryCategoria();
+			repo.removeAllUser(user, connect);
+			preparedStatement = connect.prepareStatement("DELETE FROM Usuarios WHERE idUsuario=?");
+			preparedStatement.setInt(1, user.getIdUsuario());			
+			borrado =preparedStatement.executeUpdate();
+			connect.commit();
+		} catch (SQLException  e) {
+			e.printStackTrace();
+			if(connect != null) {
+				try{
+					connect.rollback();
+				} catch(SQLException e1) {
+					e1.printStackTrace();
+					throw e1;
+				}
+			}
+			throw e;
+		} finally {
+			if (preparedStatement != null)
+				preparedStatement.close();
+			if (rsKey != null)
+				rsKey.close();
+			if (connect != null)
+				connect.close();
+		}
+		return borrado;
+	}
+
+	
+	
 }

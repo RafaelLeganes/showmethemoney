@@ -31,6 +31,7 @@ public class CategoriasController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
 		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		List<Categoria> listaCategorias = null;
 		String fecha = request.getParameter("fecha");
 		fecha = serviceCategoria.devolverFecha(fecha,null);
@@ -51,6 +52,7 @@ public class CategoriasController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
 		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		String accion = request.getParameter("action") ;
 		String nombre = request.getParameter("nombreCategoria") ;
 		String idCategoria = request.getParameter("idCategoria");

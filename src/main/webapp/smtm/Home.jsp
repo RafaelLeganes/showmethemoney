@@ -19,7 +19,7 @@
 		<div id="contenedor-perfil" class="color-sidebar">		
 			<!-- Sidebar -->
 			<div class="logo border-bottom bg-primary">
-				<img alt="" src="../images/user.png" width="75" height="75" class="img-fluid">
+				<img alt="" src="../images/usuario.png" width="75" height="75" class="img-fluid">
 				<p class="mt-3">
 					<c:out value="${sessionScope.USUARIO.nombre}" />
 				</p>	
@@ -27,7 +27,7 @@
 			<div class="menu">
 				<a href="Categorias" class="d-block text-dark p-3"><i class="icon ion-md-apps iconos-sidebar lead
 				"></i>Categorias</a> 
-				<a href="#" class="d-block text-dark p-3"><i class="icon ion-md-person lead iconos-sidebar "></i>Perfil</a> 
+				<a href="Cuenta.jsp" class="d-block text-dark p-3"><i class="icon ion-md-person lead iconos-sidebar "></i>Perfil</a> 
 				<a href="../cerrar.jsp" class="d-block text-dark p-3"><i class="icon ion-md-power iconos-sidebar lead"></i>Logout</a>
 			</div>
 		</div>
@@ -92,10 +92,10 @@
 														<tr>
 															<c:choose>
 																<c:when test="${categoria.tipo eq 'G'.charAt(0)}">
-																	<td id="rojo"><a class="text-dark" href="Movimientos?idCategoria=${categoria.idCategoria}&nombre=${categoria.nombre}&fecha=${fecha}">${categoria.nombre}</a></td>
+																	<td><a class="text-dark" id="rojo" href="Movimientos?idCategoria=${categoria.idCategoria}&nombre=${categoria.nombre}&fecha=${fecha}">${categoria.nombre}</a></td>
 																</c:when>
 																<c:otherwise>
-																	<td id="azul"><a class="text-dark" href="Movimientos?idCategoria=${categoria.idCategoria}&nombre=${categoria.nombre}&fecha=${fecha}">${categoria.nombre}</a></td>
+																	<td><a class="text-dark" id="verde" href="Movimientos?idCategoria=${categoria.idCategoria}&nombre=${categoria.nombre}&fecha=${fecha}">${categoria.nombre}</a></td>
 																</c:otherwise>
 															</c:choose>
 															<td class="text-dark texto">${categoria.importeTotal}€"</td>

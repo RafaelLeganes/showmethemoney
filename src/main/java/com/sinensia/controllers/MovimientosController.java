@@ -33,6 +33,7 @@ public class MovimientosController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
 		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		String fecha =request.getParameter("fecha");
 		fecha = serviceCategoria.devolverFecha(fecha,null);
 		String idCategoria = request.getParameter("idCategoria");
@@ -55,6 +56,7 @@ public class MovimientosController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
 		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		String accion = request.getParameter("action");
 		String importe = request.getParameter("importe");
 		String fecha = request.getParameter("fechaimporte");

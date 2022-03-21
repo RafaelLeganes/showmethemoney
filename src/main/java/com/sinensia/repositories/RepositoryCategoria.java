@@ -195,7 +195,7 @@ public class RepositoryCategoria extends RepositoryBaseDatos implements IDaoConU
 			connect = super.getconnection();
 			connect.setAutoCommit(false);
 			RepositoryMovimiento repo = new RepositoryMovimiento();
-			repo.remove(id, usuario.getIdUsuario(), connect);
+			repo.removeCategoriaMovimientos(id, usuario.getIdUsuario(), connect);
 			preparedStatement = connect.prepareStatement("DELETE FROM Categoriaspersonalizadas WHERE idCategoria=? and idUsuario=?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.setInt(2, usuario.getIdUsuario());
@@ -219,6 +219,28 @@ public class RepositoryCategoria extends RepositoryBaseDatos implements IDaoConU
 				rsKey.close();
 			if (connect != null)
 				connect.close();
+		}
+		return borrado;
+	}
+	
+	public int removeAllUser(Usuario usuario, Connection conexion) throws SQLException {
+		PreparedStatement preparedStatement = null; 
+		ResultSet rsKey = null;
+		int borrado=0;
+		try {
+			RepositoryMovimiento repo = new RepositoryMovimiento();
+			repo.removeUsuarioMovimientos(usuario.getIdUsuario(), conexion);
+			preparedStatement = conexion.prepareStatement("DELETE FROM Categoriaspersonalizadas WHERE idUsuario=?");
+			preparedStatement.setInt(1, usuario.getIdUsuario());
+			borrado =preparedStatement.executeUpdate();
+		} catch (SQLException  e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (preparedStatement != null)
+				preparedStatement.close();
+			if (rsKey != null)
+				rsKey.close();
 		}
 		return borrado;
 	}
