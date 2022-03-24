@@ -29,6 +29,14 @@ public class CategoriaService {
 		return listaCategorias;
 	}
 	
+	public List<Categoria> getCategoriasPaginadas(Usuario user, String fecha, int inicio, int registrosPorPagina) throws SQLException{	
+		List<Categoria> listaCategorias = null;
+		String dia = devolverFecha(fecha,null);
+		listaCategorias = repo.getCategoriasPaginadas(user, dia, inicio, registrosPorPagina);
+		listaCategorias = getImporte(listaCategorias);
+		return listaCategorias;
+	}
+	
 	public List<Categoria> getImporte(List<Categoria> listaCategorias){
 		for(Categoria categoria : listaCategorias) {
 			float total =0;
@@ -111,5 +119,10 @@ public class CategoriaService {
 		} else {
 			remove(id, user);
 		}
+	}
+	
+	public int getNumeroCategorias(Usuario user) throws SQLException {
+		int numero = repo.getNumeroCategorias(user);
+		return numero;
 	}
 }
