@@ -53,6 +53,45 @@ public class RepositoryCategoria extends RepositoryBaseDatos implements IDaoConU
 		return listaCategorias;
 	}
 	
+	public List<Categoria> getCategoriasPaginadas(Usuario user, String fecha, int inicio, int registrosPorPagina) throws SQLException{
+		RepositoryMovimiento repo = new RepositoryMovimiento();
+		List<Categoria> listaCategorias = new ArrayList<Categoria>();
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			connect = super.getconnection();
+			String sql = "SELECT * FROM categoriaspersonalizadas WHERE idUsuario=? LIMIT ?, ?";
+			pst = connect.prepareStatement(sql);
+			pst.setInt(1, user.getIdUsuario());
+			pst.setInt(2, inicio);
+			pst.setInt(3, registrosPorPagina);
+			rs = pst.executeQuery();
+			while(rs.next()) {
+				Categoria categoria = new Categoria();
+				categoria.setIdCategoria(rs.getInt("idCategoria"));
+				categoria.setIdUsuario(rs.getInt("idUsuario"));
+				categoria.setNombre(rs.getString("nombre"));
+				categoria.setTipo(rs.getString("tipo").charAt(0));
+				categoria.setMovimientos(repo.get(user, categoria, fecha));
+				listaCategorias.add(categoria);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(pst != null) {
+				pst.close();
+			}
+			if(rs != null) {
+				rs.close();
+			}
+			if(connect!=null) {
+				connect.close();
+			}
+		}		
+		return listaCategorias;
+	}
+	
 	public Categoria getCategoriabyId(Usuario user, Categoria categoria, String fecha) throws SQLException {
 		RepositoryMovimiento repo = new RepositoryMovimiento();
 		Categoria category = new Categoria();
@@ -243,5 +282,31 @@ public class RepositoryCategoria extends RepositoryBaseDatos implements IDaoConU
 				rsKey.close();
 		}
 		return borrado;
+	}
+	
+	public int getNumeroCategorias(Usuario user) throws SQLException {
+		PreparedStatement preparedStatement = null; 
+		ResultSet rs = null;
+		int cantidad=0;
+		try {
+			connect = super.getconnection();
+			preparedStatement = connect.prepareStatement("SELECT count(*) FROM Categoriaspersonalizadas WHERE idUsuario=?");
+			preparedStatement.setInt(1, user.getIdUsuario());
+			rs = preparedStatement.executeQuery();
+			if(rs.next()) {
+				cantidad = rs.getInt(1);
+			}
+		} catch (SQLException  e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (preparedStatement != null)
+				preparedStatement.close();
+			if (rs != null)
+				rs.close();
+			if (connect != null)
+				connect.close();
+		}
+		return cantidad;
 	}
 }

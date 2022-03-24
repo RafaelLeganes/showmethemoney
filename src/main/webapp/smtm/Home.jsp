@@ -85,9 +85,7 @@
       														<th class="texto" scope="col">Importes</th>
 														</tr>
 													</thead>
-													<c:set var="gastos" value="${0}" />
-													<c:set var="ingresos" value="${0}" />
-													<c:set var="total" value="${0}" />
+													
 													<c:forEach items="${Lista}" var="categoria" varStatus="estado">
 														<tr>
 															<c:choose>
@@ -99,19 +97,43 @@
 																</c:otherwise>
 															</c:choose>
 															<td class="text-dark texto">${categoria.importeTotal}€"</td>
+														</tr>
+													</c:forEach>	
+												</table>
+												<c:set var="gastos" value="${0}" />
+												<c:set var="ingresos" value="${0}" />
+												<c:set var="total" value="${0}" />
+												<c:forEach items="${ListaCalculos}" var="categoriacal" varStatus="estado">
+													<c:choose>
+														<c:when test="${categoriacal.tipo eq 'G'.charAt(0)}">
+															<c:set var="gastos" value="${gastos+categoriacal.importeTotal}" />
+														</c:when>
+														<c:otherwise>
+															<c:set var="ingresos" value="${ingresos+categoriacal.importeTotal}" />
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+												<c:set var="total" value="${ingresos-gastos}" />
+												<c:if test="${PaginaActual != 1}">
+													<td><a href="Home?page=${PaginaActual-1}&fecha=${fecha}">Anterior</a></td>
+												</c:if>
+												<table border="1" cellpadding="5" cellspacing="5">
+													<tr>
+														<c:forEach begin="1" end="${noDePaginas}" var="i">
 															<c:choose>
-																<c:when test="${categoria.tipo eq 'G'.charAt(0)}">
-																	<c:set var="gastos" value="${gastos+categoria.importeTotal}" />
+																<c:when test="${PaginaActual eq i}">
+																	<td>${i}</td>
 																</c:when>
 																<c:otherwise>
-																	<c:set var="ingresos" value="${ingresos+categoria.importeTotal}" />
+																	<td><a href="Home?page=${i}&fecha=${fecha}">${i}</a></td>
 																</c:otherwise>
 															</c:choose>
-														</tr>
-													</c:forEach>
-													<c:set var="total" value="${ingresos-gastos}" />
+														</c:forEach>
+													</tr>
 												</table>
-												<div>
+												<c:if test="${PaginaActual lt noDePaginas}">
+													<td><a href="Home?page=${PaginaActual+1}&fecha=${fecha}">Siguiente</a></td>
+												</c:if>
 												
 												
 												<script type="text/javascript">
@@ -122,7 +144,6 @@
 													document.getElementById("gastos").innerHTML = gastos + "€";
 													document.getElementById("total").innerHTML = total + "€";
 												</script>
-											</div>
 										</div>
 									</div>
 
