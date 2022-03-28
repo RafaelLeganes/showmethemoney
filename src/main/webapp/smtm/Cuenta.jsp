@@ -37,7 +37,7 @@ bean.setSesion(session);
 	          </a>
 	          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 	            <li><a class="dropdown-item" href="Home">Home</a></li>
-	            <li><a class="dropdown-item" href="#">Perfil</a></li>
+	            <li><a class="dropdown-item" href="Categorias">Categorias</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="../cerrar.jsp">Logout</a></li>
 	          </ul>
@@ -125,7 +125,7 @@ bean.setSesion(session);
 											<input id="inputPasswordnew" type="password" name="newpassword" required
 												class="form-control rounded-pill text-grey" value="">
 										</div>
-										<button type="submit" class="btn btn-success mt-2 rounded-pill" 
+										<button type="submit" class="btn btn-success my-2 rounded-pill" 
 										value="Modificar" name="action">Modificar</button>
 										
 										<input type="hidden" value="${sessionScope.USUARIO.idUsuario}" name="idUsuario">	
