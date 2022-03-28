@@ -9,70 +9,150 @@ bean.setSesion(session);
 <html>
 <head>
 <title>Perfil</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<style type="text/css">
-	<%@ include file = "home.css"%>
-</style>
+	<style type="text/css">
+		<%@ include file = "home.css"%>
+	</style>
 
 </head>
 <body>
-	<div class="d-flex">
-		<div id="contenedor-perfil" class="bg-primary">		
-			<!-- Sidebar -->
-			<div class="logo border-bottom">
-				<img alt="" src="../images/usuario.png" width="100" height="100" class="img-fluid">
-				<p class="mt-2">
-					<c:out value="${sessionScope.USUARIO.nombre}" />
-				</p>	
-			</div>
-			<div class="menu">
-				<a href="Home" class="d-block text-light p-3">Home</a>
-				<a href="Categorias" class="d-block text-light p-3">Categorias</a> 
-				<a href="../cerrar.jsp" class="d-block text-light p-3">Logout</a>
-			</div>
-		</div>
-		<!-- el contendio de la otra mitad -->
-		<div class="col-md-7">
-			<div class="registro d-flex align-items-center py-5">
-				<!-- Demo content-->
+		<!-- NAVBAR -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+	  <div class="container-fluid me-3">
+	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <a href="Home"><img alt="" src="../images/logo.png" class="img-fluid img me-3"></a>
+		<h2 ><a class="text-dark" href="Home">Show Money</a></h2>	
+	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	      <ul class="navbar-nav ms-auto me-5">
+	        <li class="nav-item dropdown">
+	          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	          	<img alt="" src="../images/user.png" class="img-fluid img me-3">
+				<c:out value="${sessionScope.USUARIO.nombre}" />		
+	          </a>
+	          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+	            <li><a class="dropdown-item" href="Home">Home</a></li>
+	            <li><a class="dropdown-item" href="#">Perfil</a></li>
+	            <li><hr class="dropdown-divider"></li>
+	            <li><a class="dropdown-item" href="../cerrar.jsp">Logout</a></li>
+	          </ul>
+	        </li>	        
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+		
+		<div class="w-100 my-2">
+			<section>
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-10 col-xl-6 mx-auto">
-							<h4 class="display-5 my-4">¡Sonríe! Estás en Show Money</h4>
+						<div class="col-lg-12 text-left mt-3">
+							<h6 class="text-color">Tu Perfil</h6>
+							<hr size="5" color="black">
+						</div>
+					</div>
+				</div>		
+			</section>  
+			<!-- section información cuenta -->
+			<section class="py-2">
+				<div class="container border-bottom">
+					<div class="row">
+						<div class="col-lg-4 me-2">
+							<h5 class="text-color">Información</h5>
+							<h6 class="text-dark">Aquí puedes cambiar tu correo o tu nombre</h6>
+						</div>
+
+						<div class="col-lg-4 text-left me-3">
 							<form method="post">
-								<div class="form-group mb-4">
-									<input id="inputNombre" type="text" name="nombre"
-										placeholder="${sessionScope.USUARIO.nombre}" required
-										class="form-control rounded-pill border-0 shadow-sm px-4" value="${sessionScope.USUARIO.nombre}">									
+								<div class="form-group mb-2">
+									<h6 class="text-dark ">Nombre</h6>
+									<div class="input-group">
+									
+										<input id="inputNombre" type="text" name="nombre"
+											placeholder="${sessionScope.USUARIO.nombre}" required
+											class="form-control rounded-pill me-2" data-bs-toggle="collapse" data-bs-target=".multi-collapse" 
+											aria-expanded="false" aria-controls="btnModificar"
+											value="${sessionScope.USUARIO.nombre}">	
+										<button type="submit" id="btnModificar" class="btn btn-success rounded-pill collapse multi-collapse" 
+											value="Modificar" name="action">Modificar</button>	
+									</div>
 								</div>
-								<div class="form-group mb-4">
+								<div class="form-group mb-2">
+									<h6 class="text-dark">Correo</h6>
+									<div class="input-group">	
+										
 										<input id="inputCorreo" type="email" name="email"
 											placeholder="${sessionScope.USUARIO.correo}" required
-											class="form-control rounded-pill border-0 shadow-sm px-4" value="${sessionScope.USUARIO.correo}">
-									</div>
-									<div class="form-group mb-4">
-										<input id="inputPasswordold" type="password" name="oldpassword"
-											placeholder="Indroduce Contraseña" required
-											class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" value="">
-									</div>
-									<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#newpassword" aria-expanded="false"
-									 aria-controls="newpassword">Modificar contraseña</button>
+											class="form-control rounded-pill me-2" data-bs-toggle="collapse" data-bs-target=".multi-collapse" 
+											aria-expanded="false" aria-controls="btnModificardos" value="${sessionScope.USUARIO.correo}">
+										<button type="submit" id="btnModificardos" class="btn btn-success rounded-pill collapse multi-collapse" 
+											value="Modificar" name="action">Modificar</button>	
+									</div>		
+								</div>
+							
+							</form>
+						</div>	
+					</div>
+				</div>
+			</section>		
+				
+				
+				<!-- section contraseña -->		
+				<section>				
+					<div class="container border-bottom">
+						<div class="row">			
+							<div class="col-lg-4">
+								<h5 class="text-color">Password</h5>
+								<h6 class="text-dark">Cambia tu contraseña</h6>
+							</div>	
+							
+							<div class="col-lg-4 text-left">	
+								<form method="post">	
+										
+										 <div class="mt-1 ">
+											<h6 class="text-dark">Old Password</h6>
+											<input id="inputPasswordold" type="password" name="oldpassword" required
+												class="form-control rounded-pill text-grey" value="">
+										</div>
+										
+										<div class="mt-1">
+											<h6 class="text-dark">Nuevo Password</h6>
+											<input id="inputPasswordnew" type="password" name="newpassword" required
+												class="form-control rounded-pill text-grey" value="">
+										</div>
+										<button type="submit" class="btn btn-success mt-2 rounded-pill" 
+										value="Modificar" name="action">Modificar</button>
+										
+										<input type="hidden" value="${sessionScope.USUARIO.idUsuario}" name="idUsuario">	
+										
+							
+									</form>	
+								</div>
+							</div>
+						</div>
+								
+					</section>	
+					<!-- Section eliminar cuenta -->
+						
+						<section class="pt-2">
+							<div class="container">
+								<div class="row">			
+									<div class="col-lg-4">
+										<h5 class="text-color">Eliminar Cuenta</h5>
+										<h6 class="text-dark">No nos abandones</h6>
+									</div>	
 									
-									<div id="newpassword" class="mb-4 collapse">
-										<input id="inputPasswordnew" type="password" name="newpassword"
-											placeholder="Indroduce Nueva Contraseña" 
-											class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" value="">
+									<div class="col-lg-4 text-left">	
+										<button type="submit" class="btn btn-outline-danger rounded-pill" 
+											value="Eliminar" name="action">Eliminar Cuenta</button>	
 									</div>
-									<input type="hidden" value="${sessionScope.USUARIO.idUsuario}"
-												name="idUsuario">
-									<button type="submit" class="btn btn-block mt-5 mb-4 rounded-pill shadow-s" 
-									value="Modificar" name="action">Modificar</button>
-									<button type="submit" class="btn btn-danger mt-5 mb-4 rounded-pill shadow-s " 
-									value="Eliminar" name="action">Eliminar Cuenta</button>
-								</form>
+								</div>	
+							</div>	
 								<c:choose>
 									<c:when test="${param.action eq 'Modificar'}">
 										<c:set var="correcto"
@@ -107,13 +187,7 @@ bean.setSesion(session);
 										</c:if>
 									</c:otherwise>
 								</c:choose>
-							</div>
-						</div>
-					</div>
-					<!-- End -->
-				</div>
-			</div>
-			<!-- End -->
-	</div>
-</body>
+					</section>		
+			</div>		
+	</body>
 </html>
