@@ -52,6 +52,12 @@ bean.setSesion(session);
 											placeholder="Password" required
 											class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
 									</div>
+									<div class="form-group mb-4">
+										<select class="form-select" id="tipoRepo" name="tipoRepo" required>
+											<option value="Procedure">Procedure</option>
+											<option value="JDBC">JDBC</option>
+										</select>
+									</div>
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox"
 											id="checkAcepto"><label class="form-check-label"
@@ -65,10 +71,10 @@ bean.setSesion(session);
 								</form>
 								<c:if test="${not empty param.nombre && not empty param.email && not empty param.password}">
 									<c:set var="correcto"
-										value='<%=bean.registrarUsuario(request.getParameter("nombre"), request.getParameter("email") ,request.getParameter("password"))%>' />
+										value='<%=bean.registrarUsuario(request.getParameter("nombre"), request.getParameter("email") ,request.getParameter("password"), request.getParameter("tipoRepo"))%>' />
 									<c:choose>
 										<c:when test="${correcto == false}">
-											<h2 id='error' style='color: red'>Datos incorrectos</h2>
+											<h2 id='error' style='color: red'>El correo introducido ya Existe</h2>
 										</c:when>
 										<c:otherwise>
 											<c:redirect url="smtm/Home" />

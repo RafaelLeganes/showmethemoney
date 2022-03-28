@@ -34,6 +34,7 @@
 	          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 	            <li><a class="dropdown-item" href="Home">Home</a></li>
 	            <li><a class="dropdown-item" href="Categorias">Categorias</a></li>
+	            <li><a class="dropdown-item" href="Cuenta.jsp">Perfil</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="../cerrar.jsp">Logout</a></li>
 	          </ul>
