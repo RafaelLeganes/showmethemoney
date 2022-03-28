@@ -4,18 +4,19 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.sinensia.contracts.IMovimientos;
+import com.sinensia.factories.MovimientosFactory;
 import com.sinensia.models.Categoria;
 import com.sinensia.models.Movimiento;
 import com.sinensia.models.Usuario;
-import com.sinensia.repositories.RepositoryMovimiento;
 
 public class MovimientoService {
 
-	RepositoryMovimiento repo;
+	IMovimientos repo;
 	
-    public MovimientoService() {
+    public MovimientoService(String tipo) {
         super();
-        repo = new RepositoryMovimiento();
+        repo = MovimientosFactory.getRepository(tipo);
     }
     
 	public int add(Usuario user, String importe, String nombre, String categoria,  String fecha) throws SQLException{	

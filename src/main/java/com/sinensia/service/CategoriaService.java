@@ -7,18 +7,19 @@ import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
 
+import com.sinensia.contracts.ICategorias;
+import com.sinensia.factories.CategoriasFactory;
 import com.sinensia.models.Categoria;
 import com.sinensia.models.Movimiento;
 import com.sinensia.models.Usuario;
-import com.sinensia.repositories.RepositoryCategoria;
 
 public class CategoriaService {
 	
-	RepositoryCategoria repo;
+	ICategorias repo;
 	
-    public CategoriaService() {
+    public CategoriaService(String tipo) {
         super();
-        repo = new RepositoryCategoria();
+        repo = CategoriasFactory.getRepository(tipo);
     }
 
 	public List<Categoria> getCategorias(Usuario user, String fecha) throws SQLException{	
