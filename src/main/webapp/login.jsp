@@ -8,13 +8,11 @@ bean.setSesion(session);
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title>Bootstrap Example</title>
+<title>Login</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>	
 <style type="text/css">
 	<%@ include file = "login.css"%>
 </style>
@@ -46,9 +44,15 @@ bean.setSesion(session);
 											placeholder="Password" required
 											class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
 									</div>
+									<div class="form-group mb-4">
+										<select class="form-select" id="tipoRepo" name="tipoRepo" required>
+											<option value="Procedure">Procedure</option>
+											<option value="JDBC">JDBC</option>
+										</select>
+									</div>
 										<c:if test="${not empty param.usuario}">
 											<c:set var="correcto"
-												value='<%=bean.validarUsuario(request.getParameter("usuario"), request.getParameter("password"))%>' />
+												value='<%=bean.validarUsuario(request.getParameter("usuario"), request.getParameter("password"), request.getParameter("tipoRepo"))%>' />
 											<c:choose>
 												<c:when test="${correcto == false}">
 													<c:choose>
