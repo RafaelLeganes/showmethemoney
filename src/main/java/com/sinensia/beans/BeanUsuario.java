@@ -15,16 +15,14 @@ public class BeanUsuario {
 		this.sesion = sesion;
 	}
 	
-	public BeanUsuario() {
-		this.service = new UsuarioService();
-	}
-	
-	public boolean validarUsuario(String nombre, String pass) {
+	public boolean validarUsuario(String nombre, String pass, String tipoRepo) {
 		Usuario user;
 		try {
+			service = new UsuarioService(tipoRepo);
 			user = service.validarUsuario(nombre, pass);
 			if(user !=null) {
 				sesion.setAttribute("USUARIO", user);
+				sesion.setAttribute("Repositorio", tipoRepo);
 				return true;
 			}
 		} catch (Exception e) {
@@ -36,16 +34,18 @@ public class BeanUsuario {
 	
 	public void cerrarSesion() {
 		sesion.setAttribute("USUARIO", null);
+		sesion.setAttribute("Repositorio", null);
 		sesion.invalidate();
 	}
 	
 	
-	public boolean registrarUsuario(String nombre, String correo, String pass)  {
+	public boolean registrarUsuario(String nombre, String correo, String pass, String tipoRepo)  {
+		service = new UsuarioService(tipoRepo);
 		try {		
 			Usuario usuario = service.registrarUsuario(nombre, correo, pass);
 			if(usuario.getIdUsuario() != 0) {
 				sesion.setAttribute("USUARIO", usuario);
-				
+				sesion.setAttribute("Repositorio", tipoRepo);
 				if(sesion.getAttribute("MensajeError") != null)
 					sesion.removeAttribute("MensajeError");			
 				return true;
@@ -61,8 +61,10 @@ public class BeanUsuario {
 	
 	public boolean modificarUsuario(String nombre, String correo, String passantigua, String idUsuario, String passnueva)  {
 		try {
-			Usuario user = (Usuario) sesion.getAttribute("USUARIO");		
-			boolean correcto = validarUsuario(user.getNombre(), passantigua);
+			Usuario user = (Usuario) sesion.getAttribute("USUARIO");
+			String tipoRepo = (String) sesion.getAttribute("Repositorio");
+			service = new UsuarioService(tipoRepo);
+			boolean correcto = validarUsuario(user.getNombre(), passantigua, tipoRepo);
 			if(correcto){
 				Usuario usuario = service.modificarUsuario(nombre, correo, passantigua, idUsuario, passnueva);
 				if(usuario.getIdUsuario() != 0) {
@@ -83,7 +85,8 @@ public class BeanUsuario {
 	
 	public boolean eliminarUsuario() {
 		Usuario usuario = (Usuario) sesion.getAttribute("USUARIO");
-		System.out.println(usuario.getIdUsuario());
+		String tipoRepo = (String) sesion.getAttribute("Repositorio");
+		service = new UsuarioService(tipoRepo);
 		try {		
 			int eliminado = service.eliminarUsuario(usuario);
 			if(eliminado >0) {

@@ -24,14 +24,9 @@ public class HomeController extends HttpServlet {
 	CategoriaService serviceCategoria;
 	MovimientoService serviceMovimiento;
 	
-    public HomeController() {
-        super();
-        serviceCategoria = new CategoriaService();
-        serviceMovimiento = new MovimientoService();
-    }
-
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String tipoRepo = (String) request.getSession().getAttribute("Repositorio");
+		serviceCategoria = new CategoriaService(tipoRepo);
 		Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
 		response.setContentType("text/html;charset=UTF-8");
 		request.getParameter("fecha");
@@ -52,8 +47,8 @@ public class HomeController extends HttpServlet {
 			int noDeRegistros = serviceCategoria.getNumeroCategorias(user);
 			noDePaginas = (int) Math.ceil(noDeRegistros * 1.0 / registrosPorPagina);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new ServletException("Error en BBDD: "+e.getMessage());
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/smtm/Home.jsp");
 		request.setAttribute("Lista", listaCategoriasPintar);
@@ -67,6 +62,9 @@ public class HomeController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String tipoRepo = (String) request.getSession().getAttribute("Repositorio");
+		serviceMovimiento = new MovimientoService(tipoRepo);
+		serviceCategoria = new CategoriaService(tipoRepo);
 		Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
 		response.setContentType("text/html;charset=UTF-8");
 		String importe =  request.getParameter("importe");
@@ -88,8 +86,8 @@ public class HomeController extends HttpServlet {
 			int noDeRegistros = serviceCategoria.getNumeroCategorias(user);
 			noDePaginas = (int) Math.ceil(noDeRegistros * 1.0 / registrosPorPagina);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new ServletException("Error en BBDD: "+e.getMessage());
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/smtm/Home.jsp");
 		request.setAttribute("Lista", listaCategorias);

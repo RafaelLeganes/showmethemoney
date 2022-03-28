@@ -24,13 +24,10 @@ public class MovimientosController extends HttpServlet {
 	MovimientoService serviceMovimiento;
 	CategoriaService serviceCategoria;
 
-    public MovimientosController() {
-        super();
-        serviceMovimiento = new MovimientoService();
-        serviceCategoria = new CategoriaService();
-    }
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String tipoRepo = (String) request.getSession().getAttribute("Repositorio");
+		serviceCategoria = new CategoriaService(tipoRepo);
+		serviceMovimiento = new MovimientoService(tipoRepo);
 		Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
@@ -42,8 +39,8 @@ public class MovimientosController extends HttpServlet {
 		try {
 			listaMovimientos = serviceMovimiento.get(user, idCategoria, fecha);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new ServletException("Error en BBDD: "+e.getMessage());
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/smtm/Movimientos.jsp");
 		request.setAttribute("Lista", listaMovimientos);
@@ -54,6 +51,8 @@ public class MovimientosController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String tipoRepo = (String) request.getSession().getAttribute("Repositorio");
+		serviceMovimiento = new MovimientoService(tipoRepo);
 		Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
@@ -74,8 +73,8 @@ public class MovimientosController extends HttpServlet {
 			request.setAttribute("idCategoria", idCategoria);
 			rd.forward(request, response);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new ServletException("Error en BBDD: "+e.getMessage());
 		}
 	}
 
