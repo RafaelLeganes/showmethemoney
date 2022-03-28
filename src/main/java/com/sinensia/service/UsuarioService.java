@@ -4,18 +4,18 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Properties;
 
-
+import com.sinensia.contracts.IUsuarios;
+import com.sinensia.factories.UsuariosFactory;
 import com.sinensia.models.Usuario;
-import com.sinensia.repositories.RepositoryUsuario;
 import com.sinensia.utilities.FileResourceUtils;
 import com.sinensia.utilities.conversorSHA256;
 
 public class UsuarioService {
 	
-	RepositoryUsuario repo;
+	IUsuarios repo;
 	
-	public UsuarioService() {
-		this.repo = new RepositoryUsuario();
+	public UsuarioService(String tipo) {
+		this.repo = UsuariosFactory.getRepository(tipo);
 	}
 	
 	public Usuario validarUsuario(String nombre, String pass) throws Exception{
