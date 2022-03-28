@@ -22,13 +22,10 @@ public class CategoriasController extends HttpServlet {
     
 	CategoriaService serviceCategoria;
   
-    public CategoriasController() {
-        super();
-        serviceCategoria = new CategoriaService();
-    }
-
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String tipoRepo = (String) request.getSession().getAttribute("Repositorio");
+		serviceCategoria = new CategoriaService(tipoRepo);
 		Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
@@ -41,8 +38,8 @@ public class CategoriasController extends HttpServlet {
 			request.setAttribute("Lista", listaCategorias);
 			rd.forward(request, response);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new ServletException("Error en BBDD: "+e.getMessage());
 		}
 		
 		
@@ -50,6 +47,8 @@ public class CategoriasController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String tipoRepo = (String) request.getSession().getAttribute("Repositorio");
+		serviceCategoria = new CategoriaService(tipoRepo);
 		Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
@@ -67,8 +66,8 @@ public class CategoriasController extends HttpServlet {
 			request.setAttribute("Lista", listaCategorias);
 			rd.forward(request, response);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new ServletException("Error en BBDD: "+e.getMessage());
 		}
 	}
 
