@@ -9,17 +9,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sinensia.contracts.IDao;
-import com.sinensia.contracts.IDaoGetConParametros;
+import com.sinensia.contracts.IMovimientos;
 import com.sinensia.models.Categoria;
 import com.sinensia.models.Movimiento;
 import com.sinensia.models.Usuario;
 
 
-public class RepositoryMovimiento extends RepositoryBaseDatos implements IDao<Movimiento>, IDaoGetConParametros<Movimiento>{
+public class RepositoryMovimiento extends RepositoryBaseDatos implements IMovimientos{
 	
 	private Connection connect;
 
+	@Override
 	public List<Movimiento> get(Usuario user, Categoria categoria, String fecha) throws SQLException{
 		List<Movimiento> listaMovimientos = new ArrayList<Movimiento>();
 		PreparedStatement pst = null;
@@ -153,6 +153,7 @@ public class RepositoryMovimiento extends RepositoryBaseDatos implements IDao<Mo
 		return modificado;
 	}
 	
+	@Override
 	public int removeCategoriaMovimientos(int idCategoria, int idUsuario, Connection connect) throws SQLException {
 		PreparedStatement preparedStatement = null; 
 		ResultSet rsKey = null;
@@ -176,6 +177,7 @@ public class RepositoryMovimiento extends RepositoryBaseDatos implements IDao<Mo
 		return borrado;
 	}
 	
+	@Override
 	public int removeUsuarioMovimientos(int idUsuario, Connection connect) throws SQLException {
 		PreparedStatement preparedStatement = null; 
 		ResultSet rsKey = null;

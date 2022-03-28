@@ -1,48 +1,47 @@
-package com.sinensia.repositories;
+package com.sinensia.repositoriesprocedures;
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
 
 import com.sinensia.contracts.IUsuarios;
 import com.sinensia.models.Usuario;
+import com.sinensia.repositories.RepositoryBaseDatos;
 
 
-public class RepositoryUsuario extends RepositoryBaseDatos implements IUsuarios{
+public class RepositoryUsuarioProcedure extends RepositoryBaseDatos implements IUsuarios{
 	
 	private Connection connect;
 	
 	@Override
 	public Usuario get(String nombre, String pass) throws SQLException {
-		PreparedStatement pst = null;
+		CallableStatement cs = null;
 		ResultSet rs = null;
 		try {
 			connect = super.getconnection();
-			String sql = "SELECT * FROM Usuarios WHERE nombre=? and password=?";
-			pst = connect.prepareStatement(sql);
-			pst.setString(1, nombre);
-			pst.setString(2, pass);
-			rs = pst.executeQuery();
+			//String sql = "SELECT * FROM Usuarios WHERE nombre=? and password=?";
+			String sql = "{call get_usuario(?,?)}";
+			cs = connect.prepareCall(sql);
+			cs.setString(1, nombre);
+			cs.setString(2, pass);
+			rs = cs.executeQuery();
 			Usuario user = new Usuario();
 			if(rs.next()) {
 				user.setIdUsuario(rs.getInt("idUsuario"));
 				user.setNombre(rs.getString("nombre"));
 				user.setPassword(rs.getString("password"));
 				user.setCorreo(rs.getString("correo"));
-				rs.close();
-				pst.close();
 				return user;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
-			if(pst != null) {
-				pst.close();
+			if(cs != null) {
+				cs.close();
 			}
 			if(rs != null) {
 				rs.close();
@@ -57,23 +56,23 @@ public class RepositoryUsuario extends RepositoryBaseDatos implements IUsuarios{
 
 	@Override
 	public Usuario add(Usuario usuario, Properties appProps) throws SQLException {
-		RepositoryCategoria repo = new RepositoryCategoria();
-		PreparedStatement pst = null;
+		RepositoryCategoriaProcedure repo = new RepositoryCategoriaProcedure();
+		CallableStatement cs = null;
 		ResultSet rs = null;
 		int idUsuario = 0;
 		try {
 			connect = super.getconnection();
 			connect.setAutoCommit(false);
-			String sql = "INSERT INTO Usuarios(nombre, correo, password)" + "VALUE (?, ?, ?)";
-			pst = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			pst.setString(1, usuario.getNombre());
-			pst.setString(2, usuario.getCorreo());
-			pst.setString(3, usuario.getPassword());
-			pst.executeUpdate();
+			//String sql = "INSERT INTO Usuarios(nombre, correo, password)" + "VALUE (?, ?, ?)";
+			String sql = "{call add_usuario(?,?,?,?)}";
+			cs = connect.prepareCall(sql);
+			cs.setString(1, usuario.getNombre());
+			cs.setString(2, usuario.getCorreo());
+			cs.setString(3, usuario.getPassword());
+			cs.registerOutParameter(4, java.sql.Types.INTEGER);
+			cs.executeUpdate();
 			
-			rs = pst.getGeneratedKeys();
-			rs.next();
-			idUsuario = rs.getInt(1);
+			idUsuario = cs.getInt(4);
 			Set<String> listapropiedades = appProps.stringPropertyNames();
 			for (Iterator<String> it = listapropiedades.iterator(); it.hasNext();) {
 				String nombre = (String) it.next();
@@ -93,8 +92,8 @@ public class RepositoryUsuario extends RepositoryBaseDatos implements IUsuarios{
 			}
 			throw e;
 		} finally {
-			if (pst != null)
-				pst.close();
+			if (cs != null)
+				cs.close();
 			if (rs != null)
 				rs.close();
 			if (connect != null)
@@ -107,27 +106,25 @@ public class RepositoryUsuario extends RepositoryBaseDatos implements IUsuarios{
 
 	@Override
 	public int modify(Usuario usuario) throws SQLException {
-		PreparedStatement preparedStatement = null; 
-		ResultSet rsKey = null;
+		CallableStatement cs = null;
 		int modificado=0;
 		try {
 			connect = super.getconnection();
 			modificado = usuario.getIdUsuario();
-			preparedStatement = connect.prepareStatement("UPDATE Usuarios SET nombre=?, correo=?, password=? WHERE idUsuario=?");
-			preparedStatement.setString(1, usuario.getNombre());
-			preparedStatement.setString(2, usuario.getCorreo());
-			preparedStatement.setString(3, usuario.getPassword());
-			preparedStatement.setInt(4, usuario.getIdUsuario());
-			preparedStatement.executeUpdate();
+			//String sql = "UPDATE Usuarios SET nombre=?, correo=?, password=? WHERE idUsuario=?";
+			String sql = "{call modify_usuario(?,?,?,?)}";
+			cs = connect.prepareCall(sql);
+			cs.setString(1, usuario.getNombre());
+			cs.setString(2, usuario.getCorreo());
+			cs.setString(3, usuario.getPassword());
+			cs.setInt(4, usuario.getIdUsuario());
+			cs.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
-			if(preparedStatement != null) {
-				preparedStatement.close();
-			}
-			if(rsKey != null) {
-				rsKey.close();
+			if(cs != null) {
+				cs.close();
 			}
 			if(connect != null) {
 				connect.close();
@@ -138,17 +135,18 @@ public class RepositoryUsuario extends RepositoryBaseDatos implements IUsuarios{
 
 	@Override
 	public int remove(Usuario user) throws SQLException {
-		PreparedStatement preparedStatement = null; 
-		ResultSet rsKey = null;
+		CallableStatement cs = null;
 		int borrado=0;
 		try {
 			connect = super.getconnection();
 			connect.setAutoCommit(false);
-			RepositoryCategoria repo = new RepositoryCategoria();
+			RepositoryCategoriaProcedure repo = new RepositoryCategoriaProcedure();
 			repo.removeAllUser(user, connect);
-			preparedStatement = connect.prepareStatement("DELETE FROM Usuarios WHERE idUsuario=?");
-			preparedStatement.setInt(1, user.getIdUsuario());			
-			borrado =preparedStatement.executeUpdate();
+			//String sql = "DELETE FROM Usuarios WHERE idUsuario=?";
+			String sql = "{call remove_usuario(?)}";
+			cs = connect.prepareCall(sql);
+			cs.setInt(1, user.getIdUsuario());			
+			borrado =cs.executeUpdate();;
 			connect.commit();
 		} catch (SQLException  e) {
 			e.printStackTrace();
@@ -162,10 +160,8 @@ public class RepositoryUsuario extends RepositoryBaseDatos implements IUsuarios{
 			}
 			throw e;
 		} finally {
-			if (preparedStatement != null)
-				preparedStatement.close();
-			if (rsKey != null)
-				rsKey.close();
+			if (cs != null)
+				cs.close();
 			if (connect != null)
 				connect.close();
 		}
