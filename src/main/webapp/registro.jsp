@@ -52,19 +52,14 @@ bean.setSesion(session);
 											placeholder="Password" required
 											class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
 									</div>
-									<div class="form-group mb-4">
-										<select class="form-select" id="tipoRepo" name="tipoRepo" required>
-											<option value="Procedure">Procedure</option>
-											<option value="JDBC">JDBC</option>
-										</select>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox"
-											id="checkAcepto"><label class="form-check-label"
-											for="checkAcepto">Condiones y términos</label>
-									</div>
+										
+									<select class="form-select rounded-pill border-0 shadow text-color" id="tipoRepo" name="tipoRepo" required>								
+										<option value="Procedure">Procedure</option>
+										<option value="JDBC">JDBC</option>
+									</select>
+								
 									<button type="submit"
-										class="btn btn-block mt-5 mb-4 rounded-pill shadow-s">Registrarse</button>
+										class="btn btn-block mt-5 mb-4 rounded-pill">Registrarse</button>
 									<div class="d-flex justify-content-center links mb-3">
 										<p class="mr-3">¿Ya tienes cuenta? </p> <a href="login.jsp">Login</a>
 									</div>

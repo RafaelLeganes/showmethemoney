@@ -93,8 +93,8 @@ a {
 .text-color{
 	color: #F4666F;
 }
-.modificar {
-	
-  display: "block";
+.btn-modificar {
+	width: 30%;
+  	display: "block";
+  
 }
-
